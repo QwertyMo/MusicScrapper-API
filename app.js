@@ -66,6 +66,7 @@ function getYTTrack(url, callback){
         
         callback(
             {
+                isPlaylist: false,
                 title: song.title,
                 url: "https://www.youtube.com/watch?v=" + song.videoId,
                 duration: song.duration.seconds,
@@ -86,6 +87,7 @@ function searchYT(title, callback){
         const song = videos.all[0]
         callback(
             {
+                isPlaylist: false,
                 title: song.title,
                 url: "https://www.youtube.com/watch?v=" + song.videoId,
                 duration: song.duration.seconds,
@@ -108,6 +110,7 @@ function getYTPlaylist(url, callback){
 
         var tracks = []
         await playlist.videos.forEach((i)=>{tracks[tracks.length]= {
+            isPlaylist: false,
             title: i.title,
             url: "https://www.youtube.com/watch?v=" + i.videoId,
             duration: i.duration.seconds,
@@ -116,6 +119,7 @@ function getYTPlaylist(url, callback){
         
         callback(
             {
+                isPlaylist: true,
                 title: playlist.title,
                 url: playlist.url,
                 thumbnail: playlist.thumbnail,
@@ -146,6 +150,7 @@ function getSoundCloudPlaylist(url, callback){
 
             callback(
                 {
+                    isPlaylist: true,
                     title: song.title,
                     url: song.url,
                     thumbnail: thumb,
@@ -161,6 +166,7 @@ function getSoundCloudTrack(url, callback){
         client.getSongInfo(url)
             .then(async song => {
                 callback({
+                    isPlaylist: false,
                     title: song.title,
                     url: song.url,
                     duration: Math.round(song.duration/1000),
