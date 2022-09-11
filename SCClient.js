@@ -47,7 +47,6 @@ class Client {
                         username: $("meta[property=\"soundcloud:user\"]").attr("content").replace("https://soundcloud.com/", ""),
                         url: $("meta[property=\"soundcloud:user\"]").attr("content"),
                         avatarURL: raw.split('"avatar_url":"') && raw.split('"avatar_url":"')[raw.split('"avatar_url":"').length - 1].split('"')[0] || null,
-                        urn: parseInt(Constants.USER_URN_PATTERN.exec(raw).groups.urn) || null,
                         verified: !raw.includes("\",\"verified\":false,\"visuals\""),
                         followers: parseInt(raw.split(",\"followers_count\":") && raw.split(",\"followers_count\":")[1].split(",")[0]) || 0,
                         following: parseInt(raw.split(",\"followings_count\":") && raw.split(",\"followings_count\":")[1].split(",")[0]) || 0,
