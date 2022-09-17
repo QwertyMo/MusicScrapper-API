@@ -153,15 +153,15 @@ function getSoundCloudPlaylist(url, callback){
             var thumb = song.thumbnail
             if(thumb == null) thumb = tracks[0].thumbnail
 
-            callback(
-                {
-                    isPlaylist: true,
-                    title: song.title,
-                    url: song.url,
-                    thumbnail: thumb,
-                    tracks: tracks
-                }
-            )
+            var p = {
+                isPlaylist: true,
+                title: song.title,
+                url: song.url,
+                tracks: tracks
+            }
+            if(thumb!=null) p.thumbnail = thumb
+
+            callback(p)
             
         })
        .catch(()=>{callback(404)})
@@ -170,13 +170,14 @@ function getSoundCloudPlaylist(url, callback){
 function getSoundCloudTrack(url, callback){
         client.getSongInfo(url)
             .then(async song => {
-                callback({
+                var t = {
                     isPlaylist: false,
                     title: song.title,
                     url: song.url,
-                    duration: Math.round(song.duration/1000),
-                    thumbnail: song.thumbnail,
-                })
+                    duration: Math.round(song.duration/1000)
+                }
+                if(song.thumbnail!=null) t.thumbnail = song.thumbnail
+                callback(t)
             
         })
             .catch(()=>{callback(404)})
