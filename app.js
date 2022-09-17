@@ -17,6 +17,8 @@ app.get(config.path, function(req, res){
     }
 
     if(url.includes("soundcloud.com")){
+        res.status(404).send({message: "SoundCloud disabled now. Maybe it back in next updates"})
+        return
         url = url.split("?")[0]
         getSoundCloudPlaylist(url,(dataPlaylist)=>{
             if((typeof dataPlaylist) == "number") getSoundCloudTrack(url, (dataTrack)=>{
