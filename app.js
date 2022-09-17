@@ -138,12 +138,17 @@ function getSoundCloudPlaylist(url, callback){
         .then(async song => {
 
             var tracks = []
-            await song.tracks.forEach((i)=>{tracks[tracks.length]= {
-                title: i.title,
-                url: i.url,
-                duration: Math.round(i.duration/1000),
-                thumbnail: i.thumbnail
-            }})
+            await song.tracks.forEach((i)=>{
+                var track = {
+                    isPlaylist: false,
+                    title: i.title,
+                    url: i.url,
+                    duration: Math.round(i.duration/1000)
+                }
+                if(i.thumbnail!=null) track.thumbnail = i.thumbnail
+                tracks[tracks.length]=track
+
+            })
 
             var thumb = song.thumbnail
             if(thumb == null) thumb = tracks[0].thumbnail
